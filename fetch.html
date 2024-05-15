@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mi primer consumo de api</title>
+    </head>
+    <body>
+
+
+        <h2>Datos de Rick and Morty</h2>
+
+        <div id="respuesta-api"></div>
+        
+        <script>
+            function fetchData(url){
+                fetch(url)
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Error al cargar los datos')
+                    }
+                    return response.json();
+                })
+                .then(response =>{
+                    console.log("mostrando respuesta del api", response)
+                    const dataContainer = document.getElementById('respuesta-api');
+                    dataContainer.innerHTML = JSON.stringify(response)
+                })
+                .catch(error => console.log(error))
+            }
+
+            fetchData('https://rickandmortyapi.com/api/character')
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mi segundo consumo de api</title>
+    </head>
+    <body>
+
+
+        <h2>Datos de Rick and Morty</h2>
+
+        <div id="respuesta-api"></div>
+        
+        <script>
+            const GetRequest = (url) => {
+                return new Promise((resolve, reject) => {
+                    const request = new XMLHttpRequest();
+                    request.open('GET', url);
+                    request.onload = () => {
+                        if (request.status === 200) {
+                            resolve(request.responseText)
+                        } else {
+                            reject('Error al cargar los datos')
+                        }
+                    }
+                    request.send();
+                })
+            }
+
+            GetRequest('https://rickandmortyapi.com/api/character')
+            .then(response => {
+                const dataContainer = document.getElementById('respuesta-api');
+                dataContainer.innerHTML = JSON.stringify(response)
+            })
+            .catch(error => console.log(error))
+
+        </script>
+    </body>
+</html>
